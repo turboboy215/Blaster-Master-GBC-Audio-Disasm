@@ -30,6 +30,7 @@ Each song starts with four 16-bit pointers to the sequence for each channel. Fol
 	Format: xxxxyyyy (X = note (C-B), Y = length (decoded with function, see below))
 C0 = Set tempo
 	Parameters: xxxxxxxx (X = tempo - raw TMA value)
+	NOTE: In earlier games like Ayakashi no Shiro, the tempo value serves a different purpose - since the sound engine runs in the V-Blank rather than via interrupt, it runs at a constant speed, and this value is instead used for the divider of the note lengths (see below). 
 C1 = Set duty and length (NRx1)
 	Parameters: xxxxxxxx (X = raw NRx1 value)
 C2 = Set volume/envelope (NRx2)
@@ -56,7 +57,8 @@ Fx = Set the current octave
 
 To decode note lengths, the following system is used:
 	----xyyy (X = "half flag" - multiply value by 1.5, Y = shift count (right))
-Using this system, the values of lengths are equal to as follows:
+In earlier games like Ayakashi no Shiro, the value divided is the tempo value. In other games, this value is 128.
+Using this system, the values of lengths are equal to as follows (in the more common version):
 	$x0 -> 128 ticks
 	$x1 ->  64 ticks
 	$x2 ->  32 ticks
